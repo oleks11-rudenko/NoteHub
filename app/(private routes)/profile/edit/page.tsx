@@ -1,12 +1,12 @@
 'use client';
 
-import Image from 'next/image';
-import css from './EditProfilePage.module.css';
-import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/lib/store/authStore';
 import { useState } from 'react';
-import { AuthRequest, editMe } from '@/lib/api/clientApi';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { ApiError } from '@/app/api/api';
+import { useAuthStore } from '@/lib/store/authStore';
+import { AuthRequest, editMe } from '@/lib/api/clientApi';
+import css from './EditProfilePage.module.css';
 
 export default function EditProfilePage() {
   const router = useRouter();

@@ -10,10 +10,12 @@ import { ApiError } from '@/app/api/api';
 export default function SignUp() {
   const router = useRouter();
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const setUser = useAuthStore((state) => state.setUser);
 
   const handleSubmit = async (formData: FormData) => {
     try {
+      setLoading(true);
       const formValues = Object.fromEntries(formData) as AuthRequest;
       const response = await register(formValues);
       if (response) {
@@ -25,13 +27,15 @@ export default function SignUp() {
     } catch (err) {
       const error = err as ApiError;
       setError(error.response?.data?.error ?? error.message ?? 'Oops... some error');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <main className={css.mainContent}>
-      <h1 className={css.formTitle}>Sign up</h1>
       <form action={handleSubmit} className={css.form}>
+        <h1 className={css.formTitle}>Sign up</h1>
         <div className={css.formGroup}>
           <label htmlFor="email">Email</label>
           <input id="email" type="email" name="email" className={css.input} required />
@@ -41,8 +45,8 @@ export default function SignUp() {
           <input id="password" type="password" name="password" className={css.input} required />
         </div>
         <div className={css.actions}>
-          <button type="submit" className={css.submitButton}>
-            Register
+          <button type="submit" className={css.submitButton} disabled={loading}>
+            {loading ? 'Register...' : 'Register'}
           </button>
         </div>
       </form>

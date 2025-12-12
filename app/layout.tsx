@@ -1,12 +1,12 @@
-import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import 'modern-normalize';
 import './globals.css';
+import { getPageUrl } from '@/utils/getPageUrl';
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
-import { getPageUrl } from '@/lib/api/clientApi';
-import AuthProvider from '@/components/AuthProvider/AuthProvider';
 
 const roboto = Roboto({
   subsets: ['latin'],

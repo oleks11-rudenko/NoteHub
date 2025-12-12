@@ -1,9 +1,9 @@
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { Metadata } from 'next';
-import { getPageUrl } from '@/lib/api/clientApi';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import NotesClient from './Notes.client';
-import { Tag } from '@/types/note';
+import { getPageUrl } from '@/utils/getPageUrl';
 import { fetchServerNotes } from '@/lib/api/serverApi';
+import { Tag } from '@/types/note';
 
 interface NotesProps {
   params: Promise<{ slug: Tag[] }>;

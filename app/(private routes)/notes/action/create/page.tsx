@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import css from './CreateNote.module.css';
+import { getPageUrl } from '@/utils/getPageUrl';
 import NoteForm from '@/components/NoteForm/NoteForm';
-import { getPageUrl } from '@/lib/api/clientApi';
+import css from './CreateNote.module.css';
 
 export const metadata: Metadata = {
   title: 'NoteHub - Managing online notes',

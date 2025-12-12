@@ -4,12 +4,6 @@ import { User } from '@/types/user';
 
 export const tags: string[] = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'];
 
-export function getPageUrl(currentUrl: string) {
-  const vercelUrl = process.env.VERCEL_URL;
-  const baseUrl = vercelUrl ? `https://${vercelUrl}` : 'http://localhost:3000';
-  return `${baseUrl}${currentUrl}`;
-}
-
 export interface NotesHttpResponse {
   notes: Note[];
   totalPages: number;

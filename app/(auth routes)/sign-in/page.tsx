@@ -10,10 +10,12 @@ import { ApiError } from '@/app/api/api';
 export default function SignIn() {
   const router = useRouter();
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const setUser = useAuthStore((state) => state.setUser);
 
   const handleSubmit = async (formData: FormData) => {
     try {
+      setLoading(true);
       const formValues = Object.fromEntries(formData) as AuthRequest;
       const response = await login(formValues);
       if (response) {
@@ -25,6 +27,8 @@ export default function SignIn() {
     } catch (err) {
       const error = err as ApiError;
       setError(error.response?.data?.error ?? error.message ?? 'Oops... some error');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,8 +45,8 @@ export default function SignIn() {
           <input id="password" type="password" name="password" className={css.input} required />
         </div>
         <div className={css.actions}>
-          <button type="submit" className={css.submitButton}>
-            Log in
+          <button type="submit" className={css.submitButton} disabled={loading}>
+            {loading ? 'Log in...' : 'Log in'}
           </button>
         </div>
       </form>

@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import css from './ProfilePage.module.css';
 import { getServerMe } from '@/lib/api/serverApi';
+import css from './ProfilePage.module.css';
 
 export async function generateMetadata(): Promise<Metadata> {
   const user = await getServerMe();
