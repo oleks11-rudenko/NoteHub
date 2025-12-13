@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Note } from '../../types/note';
 import css from './NoteList.module.css';
 import { deleteNote } from '@/lib/api/clientApi';
+import Loader from '../Loader/Loader';
 
 interface NoteListProps {
   notes: Note[];
@@ -11,28 +12,33 @@ interface NoteListProps {
 export default function NoteList({ notes }: NoteListProps) {
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (id: string) => deleteNote(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
     },
   });
 
+  if (isPending) return <Loader />;
+
   return (
-    <ul className={css.list}>
-      {notes.map((note) => (
-        <li key={note.id} className={css.listItem}>
-          <h2 className={css.title}>{note.title}</h2>
-          <p className={css.content}>{note.content}</p>
-          <div className={css.footer}>
-            <span className={css.tag}>{note.tag}</span>
-            <Link href={`/notes/${note.id}`}>View details</Link>
-            <button onClick={() => mutate(note.id)} className={css.button}>
-              Delete
-            </button>
-          </div>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className={css.list}>
+        {notes.map((note) => (
+          <li key={note.id} className={css.listItem}>
+            <h2 className={css.title}>{note.title}</h2>
+            <p className={css.content}>{note.content}</p>
+            <div className={css.footer}>
+              <span className={css.tag}>{note.tag}</span>
+              <Link href={`/notes/${note.id}`}>View details</Link>
+              <button onClick={() => mutate(note.id)} className={css.button}>
+                Delete
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+      {notes.length < 1 && <p className={css.notFoundNotes}>Unfortunately, there are no notes</p>}
+    </>
   );
 }

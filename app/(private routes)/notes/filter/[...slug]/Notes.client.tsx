@@ -8,6 +8,7 @@ import { fetchNotes } from '@/lib/api/clientApi';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import Pagination from '@/components/Pagination/Pagination';
 import NoteList from '@/components/NoteList/NoteList';
+import Loader from '@/components/Loader/Loader';
 import css from './NotesPage.module.css';
 
 interface NotesClientProps {
@@ -18,7 +19,7 @@ export default function NotesClient({ tag }: NotesClientProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isLoading } = useQuery({
     queryKey: ['notes', { page: currentPage, search: searchQuery, tag }],
     queryFn: () => fetchNotes(currentPage, searchQuery, tag),
     placeholderData: keepPreviousData,
@@ -31,6 +32,8 @@ export default function NotesClient({ tag }: NotesClientProps) {
     setSearchQuery(value);
     setCurrentPage(1);
   }, 300);
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className={css.app}>

@@ -29,14 +29,18 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 6px 0;
+  padding: 6px;
   margin: 0;
   list-style: none;
   z-index: 1000;
+  min-width: 100%;
+  width: max-content;
+  box-sizing: border-box;
 }
 
 .menuItem {
   margin: 0;
+  width: 100%;
 }
 
 .menuLink {
@@ -46,6 +50,9 @@
   text-decoration: none;
   font-size: 15px;
   transition: background-color 0.2s ease;
+  white-space: nowrap;
+  width: 100%;
+  border-radius: 8px;
 }
 
 .menuLink:hover {
